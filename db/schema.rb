@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,16 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426055014) do
+ActiveRecord::Schema.define(version: 20161023081850) do
 
-  create_table "posts", force: :cascade do |t|
-    t.string   "caption"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
+  create_table "books", force: :cascade do |t|
+    t.string   "name"
+    t.string   "author"
+    t.integer  "reviewer_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "books", ["reviewer_id"], name: "index_books_on_reviewer_id"
+
+  create_table "notes", force: :cascade do |t|
+    t.string   "title"
+    t.text     "note"
+    t.integer  "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "notes", ["book_id"], name: "index_notes_on_book_id"
+
+  create_table "reviewers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end
